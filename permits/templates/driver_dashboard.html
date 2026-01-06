@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Driver Dashboard{% endblock %}
+{% block content %}
+<h2>Welcome, {{ user.username }}!</h2>
+<div>
+    <a href="{% url 'request_permit' %}" class="btn">Request New Fuel Permit</a>
+    <a href="{% url 'view_requests' %}" class="btn">View My Requests</a>
+    <a href="{% url 'add_logbook' %}" class="btn">Add Log Book Entry</a>
+    <a href="{% url 'view_logbook' %}" class="btn">View Log Book</a>
+</div>
+<h3>Last Week's Requests</h3>
+<table>
+    <tr><th>ID</th><th>Litres</th><th>Purpose</th><th>Status</th></tr>
+    {% for req in requisitions %}
+    <tr><td>{{ req.id }}</td><td>{{ req.fuel_amount }}</td><td>{{ req.purpose|truncatewords:5 }}</td><td>{{ req.get_status_display }}</td></tr>
+    {% empty %}
+    <tr><td colspan="4">No requests this week</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

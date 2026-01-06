@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Generate Coupon{% endblock %}
+{% block content %}
+<h2>Generate Coupon for Requisition #{{ req.id }}</h2>
+<p>Driver: {{ req.driver.username }} | Litres: {{ req.fuel_amount }}</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Generate Coupon</button>
+</form>
+{% endblock %}

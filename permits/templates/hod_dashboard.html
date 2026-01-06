@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}HOD Dashboard{% endblock %}
+{% block content %}
+<h2>Pending Requisitions - {{ user.department }}</h2>
+<table>
+    <tr><th>ID</th><th>Driver</th><th>Litres</th><th>Actions</th></tr>
+    {% for req in requisitions %}
+    <tr>
+        <td>{{ req.id }}</td>
+        <td>{{ req.driver.username }}</td>
+        <td>{{ req.fuel_amount }}</td>
+        <td>
+            <a href="{% url 'view_requisition' req.id %}" class="btn">View</a>
+            <a href="{% url 'approve_reject' req.id 'approve' 'hod' %}" class="btn">Approve</a>
+            <a href="{% url 'approve_reject' req.id 'reject' 'hod' %}" class="btn btn-red">Reject</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No pending requests</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

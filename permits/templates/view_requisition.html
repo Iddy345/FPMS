@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}View Requisition{% endblock %}
+{% block content %}
+<h2>Requisition #{{ req.id }}</h2>
+<p>Driver: {{ req.driver.username }}</p>
+<p>Department: {{ req.driver.department }}</p>
+<p>Litres Requested: {{ req.fuel_amount }}</p>
+<p>Purpose: {{ req.purpose }}</p>
+<p>Status: {{ req.get_status_display }}</p>
+{% if logbook %}
+<h3>Latest Log Book Entry</h3>
+<p>Date: {{ logbook.entry_date }}</p>
+<p>Mileage: {{ logbook.mileage_start }} → {{ logbook.mileage_end }}</p>
+<p>Fuel Used: {{ logbook.fuel_used }} L</p>
+{% endif %}
+<a href="{% url 'dashboard' %}" class="btn">Back</a>
+{% endblock %}

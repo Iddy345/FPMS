@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Edit Request{% endblock %}
+{% block content %}
+<h2>Edit Requisition #{{ req.id }}</h2>
+<p style="color:red;">Previous rejection: {{ req.rejection_reason }}</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Resubmit</button>
+</form>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Transport Officer Dashboard{% endblock %}
+{% block content %}
+<h2>Requisitions Approved by HOD</h2>
+<table>
+    <tr><th>ID</th><th>Driver</th><th>Litres</th><th>Actions</th></tr>
+    {% for req in requisitions %}
+    <tr>
+        <td>{{ req.id }}</td>
+        <td>{{ req.driver.username }}</td>
+        <td>{{ req.fuel_amount }}</td>
+        <td>
+            <a href="{% url 'view_requisition' req.id %}" class="btn">View</a>
+            <a href="{% url 'approve_reject' req.id 'approve' 'transport' %}" class="btn">Approve</a>
+            <a href="{% url 'approve_reject' req.id 'reject' 'transport' %}" class="btn btn-red">Reject</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No requisitions</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

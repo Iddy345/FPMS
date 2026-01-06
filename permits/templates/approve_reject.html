@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}{{ action|capfirst }} Requisition{% endblock %}
+{% block content %}
+<h2>{{ action|capfirst }} Requisition #{{ req.id }}</h2>
+<p>Driver: {{ req.driver.username }}</p>
+<p>Litres: {{ req.fuel_amount }}</p>
+<p>Purpose: {{ req.purpose }}</p>
+{% if action == 'reject' %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-red">Confirm Rejection</button>
+    </form>
+{% else %}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn">Confirm Approval</button>
+    </form>
+{% endif %}
+<a href="{% url 'dashboard' %}" class="btn">Back to Dashboard</a>
+{% endblock %}

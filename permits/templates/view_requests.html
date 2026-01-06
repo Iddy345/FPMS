@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}My Requests{% endblock %}
+{% block content %}
+<h2>My Fuel Requests</h2>
+<table>
+    <tr><th>ID</th><th>Litres</th><th>Status</th><th>Actions</th></tr>
+    {% for req in requisitions %}
+    <tr>
+        <td>{{ req.id }}</td>
+        <td>{{ req.fuel_amount }}</td>
+        <td>{{ req.get_status_display }}</td>
+        <td>
+            {% if req.status == 'rejected' %}
+                <a href="{% url 'edit_requisition' req.id %}" class="btn">Edit & Resubmit</a>
+            {% endif %}
+            {% if req.status == 'approved_finance' and req.coupon %}
+                <a href="{% url 'download_coupon' req.id %}" class="btn">Download Coupon</a>
+            {% endif %}
+        </td>
+    </tr>
+    {% if req.rejection_reason %}
+    <tr><td colspan="4" style="background:#fee2e2; padding:10px;">Rejection Reason: {{ req.rejection_reason }}</td></tr>
+    {% endif %}
+    {% endfor %}
+</table>
+{% endblock %}

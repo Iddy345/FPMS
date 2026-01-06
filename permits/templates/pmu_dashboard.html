@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}PMU Officer Dashboard{% endblock %}
+{% block content %}
+<h2>Requisitions Approved by Transport</h2>
+<table>
+    <tr><th>ID</th><th>Driver</th><th>Litres</th><th>Actions</th></tr>
+    {% for req in requisitions %}
+    <tr>
+        <td>{{ req.id }}</td>
+        <td>{{ req.driver.username }}</td>
+        <td>{{ req.fuel_amount }}</td>
+        <td>
+            <a href="{% url 'view_requisition' req.id %}" class="btn">View</a>
+            <a href="{% url 'approve_reject' req.id 'approve' 'pmu' %}" class="btn">Approve & Generate Coupon</a>
+            <a href="{% url 'approve_reject' req.id 'reject' 'pmu' %}" class="btn btn-red">Reject</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No requisitions</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}
