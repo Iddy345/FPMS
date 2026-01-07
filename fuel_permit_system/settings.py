@@ -69,7 +69,10 @@ DATABASES = {
     }
 }
 
-
+# Authentication redirects
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/dashboard/'   # or '/' if you prefer root → dashboard
+LOGOUT_REDIRECT_URL = '/login/'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

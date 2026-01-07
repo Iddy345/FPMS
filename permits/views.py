@@ -10,6 +10,7 @@ from .forms import UserRegistrationForm, RequisitionForm, LogBookForm, Rejection
 from .models import Requisition, LogBook, Coupon, User
 from django.contrib.auth import logout as auth_logout
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 def register(request):
     if request.method == 'POST':
@@ -238,3 +239,25 @@ def logout_view(request):
     auth_logout(request)
     messages.success(request, 'You Have Been Logged out Successfully.')
     return redirect('login')
+    
+    role = getattr(user, 'role', 'Driver')
+    
+    context = {
+        'role': role,
+        'username': user.username,
+    }
+    
+    if role == 'Admin':
+        return render(request, 'admin_dashboard.html', context)
+    elif role == 'Driver':
+        return render(request, 'driver_dashboard.html', context)
+    elif role == 'HoD':
+        return render(request, 'hod_dashboard.html', context)
+    elif role == 'Ugavi':
+        return render(request, 'ugavi_dashboard.html', context)
+    elif role == 'Transport Officer':
+        return render(request, 'transport_dashboard.html', context)
+    elif role == 'Finance':
+        return render(request, 'finance_dashboard.html', context)
+    else:
+        return render(request, 'default_dashboard.html', context)
